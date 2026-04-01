@@ -116,35 +116,34 @@ const Index = () => {
   const handleRunHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
+    
+    if (!isRunEscaping) {
+      setRunOriginalRect(rect);
+    }
+    
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    // Define safe zones (areas without text) relative to the link
-    // Move to spaces between lines or to the right/left margins
-    const safeOffsets = [
-      { x: -60, y: -30 },  // upper left
-      { x: 60, y: -30 },   // upper right
-      { x: -80, y: 0 },    // left
-      { x: 80, y: 0 },     // right
-      { x: -60, y: 30 },   // lower left
-      { x: 60, y: 30 },    // lower right
-      { x: 0, y: -40 },    // above
-      { x: 0, y: 40 },     // below
-    ];
+    // Flee away from mouse cursor
+    const dx = centerX - mouseX;
+    const dy = centerY - mouseY;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const flee = 80 + Math.random() * 40;
     
-    // Pick a random safe offset
-    const randomOffset = safeOffsets[Math.floor(Math.random() * safeOffsets.length)];
+    // Clamp within viewport
+    const newX = Math.max(20, Math.min(window.innerWidth - 40, centerX + (dx / dist) * flee));
+    const newY = Math.max(20, Math.min(window.innerHeight - 30, centerY + (dy / dist) * flee));
     
-    setRunPosition({ 
-      x: centerX + randomOffset.x, 
-      y: centerY + randomOffset.y 
-    });
+    setRunPosition({ x: newX, y: newY });
     setIsRunEscaping(true);
   };
 
   const handleMouseLeaveArea = () => {
     setIsRunEscaping(false);
     setRunPosition({ x: 0, y: 0 });
+    setRunOriginalRect(null);
   };
 
   return (
