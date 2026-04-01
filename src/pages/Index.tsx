@@ -54,6 +54,7 @@ const workProjects = [
 const Index = () => {
   const [activeTab, setActiveTab] = useState<"work" | "play">("work");
   const [copied, setCopied] = useState(false);
+  const [runOriginalRect, setRunOriginalRect] = useState<DOMRect | null>(null);
   const [runPosition, setRunPosition] = useState({ x: 0, y: 0 });
   const [isRunEscaping, setIsRunEscaping] = useState(false);
   const { toast, dismiss } = useToast();
