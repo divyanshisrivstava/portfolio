@@ -147,7 +147,7 @@ const Index = () => {
   };
 
   return (
-    <main className="flex flex-col text-sm justify-between text-neutral-800 no-scrollbar scroll-smooth gap-12 p-4 pb-12 sm:p-8 w-full sm:w-[800px] mx-auto relative">
+    <main className="flex flex-col text-sm justify-between text-neutral-800 no-scrollbar scroll-smooth gap-10 sm:gap-12 px-5 py-8 sm:p-8 w-full max-w-[800px] mx-auto relative">
       {/* Header */}
       <div className="w-full flex flex-col gap-8 z-10">
         <div className="flex items-start justify-between">
