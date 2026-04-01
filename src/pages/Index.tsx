@@ -169,7 +169,7 @@ const Index = () => {
   const handleMouseLeaveArea = () => {
     setIsRunEscaping(false);
     setRunPosition({ x: 0, y: 0 });
-    setRunOriginalRect(null);
+    
   };
 
   return (
