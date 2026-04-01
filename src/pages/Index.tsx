@@ -54,6 +54,7 @@ const workProjects = [
 const Index = () => {
   const [activeTab, setActiveTab] = useState<"work" | "play">("work");
   const [copied, setCopied] = useState(false);
+  const [runOriginalRect, setRunOriginalRect] = useState<DOMRect | null>(null);
   const [runPosition, setRunPosition] = useState({ x: 0, y: 0 });
   const [isRunEscaping, setIsRunEscaping] = useState(false);
   const { toast, dismiss } = useToast();
@@ -115,35 +116,34 @@ const Index = () => {
   const handleRunHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
+    
+    if (!isRunEscaping) {
+      setRunOriginalRect(rect);
+    }
+    
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    // Define safe zones (areas without text) relative to the link
-    // Move to spaces between lines or to the right/left margins
-    const safeOffsets = [
-      { x: -60, y: -30 },  // upper left
-      { x: 60, y: -30 },   // upper right
-      { x: -80, y: 0 },    // left
-      { x: 80, y: 0 },     // right
-      { x: -60, y: 30 },   // lower left
-      { x: 60, y: 30 },    // lower right
-      { x: 0, y: -40 },    // above
-      { x: 0, y: 40 },     // below
-    ];
+    // Flee away from mouse cursor
+    const dx = centerX - mouseX;
+    const dy = centerY - mouseY;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const flee = 80 + Math.random() * 40;
     
-    // Pick a random safe offset
-    const randomOffset = safeOffsets[Math.floor(Math.random() * safeOffsets.length)];
+    // Clamp within viewport
+    const newX = Math.max(20, Math.min(window.innerWidth - 40, centerX + (dx / dist) * flee));
+    const newY = Math.max(20, Math.min(window.innerHeight - 30, centerY + (dy / dist) * flee));
     
-    setRunPosition({ 
-      x: centerX + randomOffset.x, 
-      y: centerY + randomOffset.y 
-    });
+    setRunPosition({ x: newX, y: newY });
     setIsRunEscaping(true);
   };
 
   const handleMouseLeaveArea = () => {
     setIsRunEscaping(false);
     setRunPosition({ x: 0, y: 0 });
+    setRunOriginalRect(null);
   };
 
   return (
@@ -155,24 +155,28 @@ const Index = () => {
             <h1 className="text-sm font-medium">Ayush</h1>
             <p className="text-neutral-400">Product Engineer</p>
           </div>
-          <button
-            onClick={handleGetInTouch}
-            className="text-xs px-3 py-1.5 border border-neutral-200 rounded hover:bg-neutral-50 transition-colors duration-200"
-          >
-            Get in touch
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://your-resume-url.com"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-xs text-neutral-400 hover:text-neutral-800 transition-colors duration-200"
+            >
+              Résumé
+            </a>
+            <button
+              onClick={handleGetInTouch}
+              className="text-xs px-3 py-1.5 border border-neutral-200 rounded hover:bg-neutral-50 transition-colors duration-200"
+            >
+              Get in touch
+            </button>
+          </div>
         </div>
 
         {/* Bio */}
         <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
           <p>
             I build reliable, scalable applications & systems for businesses that need things done right. From complex backends to polished interfaces — I focus on solving real problems with clean, maintainable code.
-          </p>
-          <p>
-            Here's my{" "}
-            <a className="blue-link" href="https://your-resume-url.com" target="_blank" rel="noreferrer noopener">
-              résumé
-            </a>.
           </p>
         </div>
 
@@ -214,13 +218,15 @@ const Index = () => {
             </a>{" "}
             and{" "}
             <a 
-              className="blue-link transition-all duration-500 ease-in-out cursor-pointer" 
+              className="blue-link cursor-pointer"
               onMouseEnter={handleRunHover}
               onClick={handleRunHover}
               style={isRunEscaping ? { 
                 position: 'fixed',
                 left: `${runPosition.x}px`, 
                 top: `${runPosition.y}px`,
+                transition: 'left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), top 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                zIndex: 50,
               } : {}}
             >
               run
