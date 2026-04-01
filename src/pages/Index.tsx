@@ -155,22 +155,12 @@ const Index = () => {
             <h1 className="text-sm font-medium">Ayush</h1>
             <p className="text-neutral-400">Product Engineer</p>
           </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="https://your-resume-url.com"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-xs text-neutral-400 hover:text-neutral-800 transition-colors duration-200"
-            >
-              Résumé
-            </a>
-            <button
-              onClick={handleGetInTouch}
-              className="text-xs px-3 py-1.5 border border-neutral-200 rounded hover:bg-neutral-50 transition-colors duration-200"
-            >
-              Get in touch
-            </button>
-          </div>
+          <button
+            onClick={handleGetInTouch}
+            className="text-xs px-3 py-1.5 border border-neutral-200 rounded hover:bg-neutral-50 transition-colors duration-200"
+          >
+            Get in touch
+          </button>
         </div>
 
         {/* Bio */}
@@ -240,10 +230,13 @@ const Index = () => {
             </a>{" "},{" "}
             <a className="blue-link" href="https://x.com/miracneroid" target="_blank" rel="noreferrer noopener">
               twitter
-            </a>{" "}, or {" "}
+            </a>{" "},{" "}
             <a className="blue-link" href="https://www.linkedin.com/in/miracneroid/" target="_blank" rel="noreferrer noopener">
               linkedin
-            </a>.{" "}
+            </a>{" "}or view my{" "}
+            <a className="blue-link" href="https://your-resume-url.com" target="_blank" rel="noreferrer noopener">
+              résumé
+            </a>.
           </p>
         </div>
       </div>
