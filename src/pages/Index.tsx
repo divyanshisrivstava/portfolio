@@ -230,12 +230,9 @@ const Index = () => {
             </a>{" "},{" "}
             <a className="blue-link" href="https://x.com/miracneroid" target="_blank" rel="noreferrer noopener">
               twitter
-            </a>{" "},{" "}
+            </a>{" "}, or{" "}
             <a className="blue-link" href="https://www.linkedin.com/in/miracneroid/" target="_blank" rel="noreferrer noopener">
               linkedin
-            </a>{" "}or view my{" "}
-            <a className="blue-link" href="https://your-resume-url.com" target="_blank" rel="noreferrer noopener">
-              résumé
             </a>.
           </p>
         </div>
@@ -243,7 +240,17 @@ const Index = () => {
 
       {/* Work/Play Toggle + Projects */}
       <div className="w-full flex flex-col gap-8">
-        <WorkPlayToggle activeTab={activeTab} onTabChange={setActiveTab} />
+        <div className="flex items-center justify-between">
+          <WorkPlayToggle activeTab={activeTab} onTabChange={setActiveTab} />
+          <a
+            href="https://your-resume-url.com"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="text-xs px-3 py-1.5 border border-neutral-200 rounded hover:bg-neutral-50 transition-colors duration-200"
+          >
+            Résumé
+          </a>
+        </div>
 
         <div className="w-full flex flex-col gap-8">
           {activeTab === "work" &&
