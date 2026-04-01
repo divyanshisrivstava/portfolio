@@ -78,6 +78,41 @@ const Index = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleConsult = () => {
+    toast({
+      title: "",
+      description: (
+        <div className="w-full">
+          <div className="flex items-start justify-between mb-4 px-6 pt-4">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground">Consult</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Book a call or reach out via email
+              </p>
+            </div>
+            <a
+              href="mailto:ayushsriavstava@gmail.com"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 mt-1"
+            >
+              ayushsriavstava@gmail.com
+            </a>
+          </div>
+          <div className="bg-background overflow-hidden pb-4" style={{ height: "550px" }}>
+            <Cal
+              namespace="30min"
+              calLink="miracneroid/30min"
+              style={{ width: "100%", height: "100%", overflow: "scroll" }}
+              config={{ 
+                layout: "month_view",
+                theme: "light"
+              }}
+            />
+          </div>
+        </div>
+      ),
+    });
+  };
+
   const handleGetInTouch = () => {
     toast({
       title: "",
@@ -203,9 +238,12 @@ const Index = () => {
               teach
             </a>
             ,{" "}
-            <a className="blue-link" target="_blank" rel="noreferrer noopener" href="">
+            <button 
+              className="blue-link cursor-pointer"
+              onClick={handleConsult}
+            >
               consult
-            </a>{" "}
+            </button>{" "}
             and{" "}
             <a 
               className="blue-link cursor-pointer"
