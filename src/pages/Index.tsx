@@ -53,11 +53,9 @@ const workProjects = [
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<"work" | "play">("work");
-  const [copied, setCopied] = useState(false);
-  const [runOriginalRect, setRunOriginalRect] = useState<DOMRect | null>(null);
   const [runPosition, setRunPosition] = useState({ x: 0, y: 0 });
   const [isRunEscaping, setIsRunEscaping] = useState(false);
-  const { toast, dismiss } = useToast();
+  const { toast } = useToast();
 
   useEffect(() => {
     (async function () {
@@ -72,11 +70,6 @@ const Index = () => {
     })();
   }, []);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText("ayushsriavstava@gmail.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const handleConsult = () => {
     toast({
@@ -152,9 +145,7 @@ const Index = () => {
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
     
-    if (!isRunEscaping) {
-      setRunOriginalRect(rect);
-    }
+    // track original position implicitly via rect
     
     const mouseX = e.clientX;
     const mouseY = e.clientY;
@@ -178,7 +169,7 @@ const Index = () => {
   const handleMouseLeaveArea = () => {
     setIsRunEscaping(false);
     setRunPosition({ x: 0, y: 0 });
-    setRunOriginalRect(null);
+    
   };
 
   return (
