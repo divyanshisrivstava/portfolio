@@ -147,9 +147,9 @@ const Index = () => {
   };
 
   return (
-    <main className="flex flex-col text-sm justify-between text-neutral-800 no-scrollbar scroll-smooth gap-12 p-4 pb-12 sm:p-8 w-full sm:w-[800px] mx-auto relative">
+    <main className="flex flex-col text-sm justify-between text-neutral-800 no-scrollbar scroll-smooth gap-10 sm:gap-12 px-5 py-8 sm:p-8 w-full max-w-[800px] mx-auto relative">
       {/* Header */}
-      <div className="w-full flex flex-col gap-8 z-10">
+      <div className="w-full flex flex-col gap-6 sm:gap-8 z-10">
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-0">
             <h1 className="text-sm font-medium">Ayush</h1>
@@ -167,6 +167,12 @@ const Index = () => {
         <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
           <p>
             I build reliable, scalable applications & systems for businesses that need things done right. From complex backends to polished interfaces — I focus on solving real problems with clean, maintainable code.
+          </p>
+          <p>
+            Here's my{" "}
+            <a className="blue-link" href="https://your-resume-url.com" target="_blank" rel="noreferrer noopener">
+              résumé
+            </a>.
           </p>
         </div>
 
