@@ -70,11 +70,6 @@ const Index = () => {
     })();
   }, []);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText("ayushsriavstava@gmail.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const handleConsult = () => {
     toast({
