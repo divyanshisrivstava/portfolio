@@ -243,7 +243,7 @@ const Index = () => {
         <div className="flex items-center justify-between">
           <WorkPlayToggle activeTab={activeTab} onTabChange={setActiveTab} />
           <a
-            href="https://your-resume-url.com"
+            href="https://resume-dev-miracneroid.netlify.app/"
             target="_blank"
             rel="noreferrer noopener"
             className="text-xs px-3 py-1.5 border border-neutral-200 rounded hover:bg-neutral-50 transition-colors duration-200"
