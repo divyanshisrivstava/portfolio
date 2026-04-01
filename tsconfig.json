@@ -3,7 +3,7 @@
     "allowImportingTsExtensions": true,
     "incremental": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "lib": [
       "ES2020",
       "DOM",
@@ -29,7 +29,9 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2020",
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "allowJs": true,
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules"
