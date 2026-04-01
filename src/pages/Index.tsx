@@ -145,9 +145,7 @@ const Index = () => {
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
     
-    if (!isRunEscaping) {
-      setRunOriginalRect(rect);
-    }
+    // track original position implicitly via rect
     
     const mouseX = e.clientX;
     const mouseY = e.clientY;
