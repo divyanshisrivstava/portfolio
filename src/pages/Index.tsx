@@ -230,12 +230,9 @@ const Index = () => {
             </a>{" "},{" "}
             <a className="blue-link" href="https://x.com/miracneroid" target="_blank" rel="noreferrer noopener">
               twitter
-            </a>{" "},{" "}
+            </a>{" "}, or{" "}
             <a className="blue-link" href="https://www.linkedin.com/in/miracneroid/" target="_blank" rel="noreferrer noopener">
               linkedin
-            </a>{" "}or view my{" "}
-            <a className="blue-link" href="https://your-resume-url.com" target="_blank" rel="noreferrer noopener">
-              résumé
             </a>.
           </p>
         </div>
