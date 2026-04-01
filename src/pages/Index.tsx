@@ -53,9 +53,11 @@ const workProjects = [
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<"work" | "play">("work");
+  const [copied, setCopied] = useState(false);
+  const [runOriginalRect, setRunOriginalRect] = useState<DOMRect | null>(null);
   const [runPosition, setRunPosition] = useState({ x: 0, y: 0 });
   const [isRunEscaping, setIsRunEscaping] = useState(false);
-  const { toast } = useToast();
+  const { toast, dismiss } = useToast();
 
   useEffect(() => {
     (async function () {
@@ -70,40 +72,10 @@ const Index = () => {
     })();
   }, []);
 
-
-  const handleConsult = () => {
-    toast({
-      title: "",
-      description: (
-        <div className="w-full">
-          <div className="flex items-start justify-between mb-4 px-6 pt-4">
-            <div>
-              <h2 className="text-2xl font-bold text-foreground">Consult</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Book a call or reach out via email
-              </p>
-            </div>
-            <a
-              href="mailto:ayushsriavstava@gmail.com"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 mt-1"
-            >
-              ayushsriavstava@gmail.com
-            </a>
-          </div>
-          <div className="bg-background overflow-hidden pb-4" style={{ height: "550px" }}>
-            <Cal
-              namespace="30min"
-              calLink="miracneroid/30min"
-              style={{ width: "100%", height: "100%", overflow: "scroll" }}
-              config={{ 
-                layout: "month_view",
-                theme: "light"
-              }}
-            />
-          </div>
-        </div>
-      ),
-    });
+  const handleCopy = () => {
+    navigator.clipboard.writeText("ayushsriavstava@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleGetInTouch = () => {
@@ -141,11 +113,49 @@ const Index = () => {
     });
   };
 
+  const handleConsult = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    toast({
+      title: "",
+      description: (
+        <div className="w-full">
+          <div className="flex items-start justify-between mb-4 px-6 pt-4">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground">Consult</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Book a call or reach out via email
+              </p>
+            </div>
+            <a
+              href="mailto:ayushsriavstava@gmail.com"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 mt-1"
+            >
+              ayushsriavstava@gmail.com
+            </a>
+          </div>
+          <div className="bg-background overflow-hidden pb-4" style={{ height: "550px" }}>
+            <Cal
+              namespace="30min"
+              calLink="miracneroid/30min"
+              style={{ width: "100%", height: "100%", overflow: "scroll" }}
+              config={{ 
+                layout: "month_view",
+                theme: "light"
+              }}
+            />
+          </div>
+        </div>
+      ),
+    });
+  };
+
   const handleRunHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
     
-    // track original position implicitly via rect
+    if (!isRunEscaping) {
+      setRunOriginalRect(rect);
+    }
     
     const mouseX = e.clientX;
     const mouseY = e.clientY;
@@ -169,7 +179,7 @@ const Index = () => {
   const handleMouseLeaveArea = () => {
     setIsRunEscaping(false);
     setRunPosition({ x: 0, y: 0 });
-    
+    setRunOriginalRect(null);
   };
 
   return (
@@ -229,12 +239,9 @@ const Index = () => {
               teach
             </a>
             ,{" "}
-            <button 
-              className="blue-link cursor-pointer"
-              onClick={handleConsult}
-            >
+            <a className="blue-link cursor-pointer" onClick={handleConsult}>
               consult
-            </button>{" "}
+            </a>{" "}
             and{" "}
             <a 
               className="blue-link cursor-pointer"
