@@ -1,37 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ExperienceItem from "@/components/ExperienceItem";
 import ProjectCard from "@/components/ProjectCard";
 import WorkPlayToggle from "@/components/WorkPlayToggle";
+import { useToast } from "@/hooks/use-toast";
+import Cal, { getCalApi } from "@calcom/embed-react";
 
 const workProjects = [
   {
-    title: "Transactions",
-    description: "Improving payment journeys on Groww Pay.",
+    title: "Rareware",
+    description: "Developing scalable web platforms for businesses.",
+    tech: ["React", "Node.js", "PostgreSQL", "Stripe API", "Redis"],
     imageUrl: "https://vedantja.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftransactions-mock.a80cdb3e.webp&w=3840&q=75",
     href: "https://vedantja.in/work/transactions",
   },
   {
-    title: "Deep Dive (CIID & Spotify)",
-    description: "Infinite discovery and depth.",
+    title: "Paystream",
+    description: "Improving payment infrastructure for fintech platforms.",
+    tech: ["Next.js", "TypeScript", "Prisma", "AWS", "WebSockets"],
     imageUrl: "https://vedantja.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fspotify.9a23ae99.png&w=3840&q=75",
     href: "https://vedantja.in/project/spotify",
     isIcon: true,
   },
   {
-    title: "QR Codes",
-    description: "Foundations for personalisation on Groww.",
+    title: "Puzzle RDP",
+    description: "Optimizing infrastructure for remote desktop platforms.",
+    tech: ["React", "Go", "PostgreSQL", "Docker", "CloudFront"],
     imageUrl: "https://vedantja.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fqr-mock.d0404493.webp&w=3840&q=75",
     href: "https://vedantja.in/work/qr",
   },
   {
-    title: "Junta Quirks",
-    description: "Experiments to understand Groww users.",
+    title: "Warehouse OS",
+    description: "Streamlining real-time inventory operations for logistics.",
+    tech: ["React", "Node.js", "MongoDB", "GraphQL", "Tailwind"],
     imageUrl: "https://vedantja.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fjunta-mock.bef5bcc1.webp&w=3840&q=75",
     href: "https://vedantja.in/writing/junta-quirks",
   },
   {
-    title: "UPI Lite",
-    description: "Lightning fast payments on Groww Pay.",
+    title: "LearnTrack",
+    description: "Scaling edtech platforms for seamless learning experiences.",
+    tech: ["React", "Node.js", "MongoDB", "GraphQL", "Tailwind"],
+    imageUrl: "https://vedantja.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fupi-lite-mock.c37ff331.webp&w=3840&q=75",
+    href: "https://vedantja.in/work/upi-lite",
+  },
+  {
+    title: "ClientHub CRM",
+    description: "Centralizing client workflows for better team efficiency.",
+    tech: ["React", "Node.js", "MongoDB", "GraphQL", "Tailwind"],
     imageUrl: "https://vedantja.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fupi-lite-mock.c37ff331.webp&w=3840&q=75",
     href: "https://vedantja.in/work/upi-lite",
   },
@@ -40,85 +54,184 @@ const workProjects = [
 const Index = () => {
   const [activeTab, setActiveTab] = useState<"work" | "play">("work");
   const [copied, setCopied] = useState(false);
+  const [runPosition, setRunPosition] = useState({ x: 0, y: 0 });
+  const [isRunEscaping, setIsRunEscaping] = useState(false);
+  const { toast, dismiss } = useToast();
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "30min" });
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        styles: {
+          branding: { brandColor: "#000000" }
+        }
+      });
+    })();
+  }, []);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("hello@vedantja.in");
+    navigator.clipboard.writeText("ayushsriavstava@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleGetInTouch = () => {
+    toast({
+      title: "",
+      description: (
+        <div className="w-full">
+          <div className="flex items-start justify-between mb-4 px-6 pt-4">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground">Get in touch</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Book a call or reach out via email
+              </p>
+            </div>
+            <a
+              href="mailto:ayushsriavstava@gmail.com"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 mt-1"
+            >
+              ayushsriavstava@gmail.com
+            </a>
+          </div>
+          <div className="bg-background overflow-hidden pb-4" style={{ height: "550px" }}>
+            <Cal
+              namespace="30min"
+              calLink="miracneroid/30min"
+              style={{ width: "100%", height: "100%", overflow: "scroll" }}
+              config={{ 
+                layout: "month_view",
+                theme: "light"
+              }}
+            />
+          </div>
+        </div>
+      ),
+    });
+  };
+
+  const handleRunHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Define safe zones (areas without text) relative to the link
+    // Move to spaces between lines or to the right/left margins
+    const safeOffsets = [
+      { x: -60, y: -30 },  // upper left
+      { x: 60, y: -30 },   // upper right
+      { x: -80, y: 0 },    // left
+      { x: 80, y: 0 },     // right
+      { x: -60, y: 30 },   // lower left
+      { x: 60, y: 30 },    // lower right
+      { x: 0, y: -40 },    // above
+      { x: 0, y: 40 },     // below
+    ];
+    
+    // Pick a random safe offset
+    const randomOffset = safeOffsets[Math.floor(Math.random() * safeOffsets.length)];
+    
+    setRunPosition({ 
+      x: centerX + randomOffset.x, 
+      y: centerY + randomOffset.y 
+    });
+    setIsRunEscaping(true);
+  };
+
+  const handleMouseLeaveArea = () => {
+    setIsRunEscaping(false);
+    setRunPosition({ x: 0, y: 0 });
   };
 
   return (
     <main className="flex flex-col text-sm justify-between text-neutral-800 no-scrollbar scroll-smooth gap-12 p-4 pb-12 sm:p-8 w-full sm:w-[800px] mx-auto relative">
       {/* Header */}
       <div className="w-full flex flex-col gap-8 z-10">
-        <div className="flex flex-col gap-0">
-          <h1 className="text-sm font-medium">Vedant</h1>
-          <p className="text-neutral-400">Interaction Designer</p>
+        <div className="flex items-start justify-between">
+          <div className="flex flex-col gap-0">
+            <h1 className="text-sm font-medium">Ayush</h1>
+            <p className="text-neutral-400">Product Engineer</p>
+          </div>
+          <button
+            onClick={handleGetInTouch}
+            className="text-xs px-3 py-1.5 border border-neutral-200 rounded hover:bg-neutral-50 transition-colors duration-200"
+          >
+            Get in touch
+          </button>
         </div>
 
         {/* Bio */}
         <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
           <p>
-            I design and build interfaces with emerging technologies – digital or
-            physical. Driven by radical ideas, I consistently challenge the status
-            quo with my work.
+            I build reliable, scalable applications & systems for businesses that need things done right. From complex backends to polished interfaces — I focus on solving real problems with clean, maintainable code.
           </p>
         </div>
 
         {/* Experience */}
         <div className="flex flex-col gap-3">
           <ExperienceItem
-            years="2026 - Now"
-            title="Leading design at"
-            linkText="RinggAI"
-            linkHref="https://ringg.ai/"
-            description="Designing the future of voice agents."
+            years="2025 - Now"
+            title="Full Stack Developer"
+            linkText="RareWare"
+            linkHref="https://rarewareshop.com/"
+            description="Building end-to-end web products for growing businesses."
           />
           <ExperienceItem
             years="2024 - 2025"
-            title="Interaction Design at"
-            linkText="CIID"
-            linkHref="https://ciid.dk/"
-            description="Prototypes blending the physical and the digital."
+            title="Full Stack Developer"
+            linkText="Puzzle RDP"
+            linkHref="https://eduskillsfoundation.org/"
+            description="Developed cloud infrastructure for high-traffic systems."
           />
           <ExperienceItem
-            years="2021 – 2024"
-            title="Product Design at"
-            linkText="Groww"
-            linkHref="https://www.ycombinator.com/companies/groww"
-            description="Payments, Search, design systems"
+            years="Mar - Jun 2024"
+            title="Web Development Intern"
+            linkText="TripFox Travellers"
+            linkHref="https://www.indiamart.com/tripfox-travellers/"
+            description="Building real-time booking systems at scale."
           />
         </div>
 
         {/* Personal + Contact */}
-        <div className="flex flex-col gap-1 w-full sm:max-w-[480px]">
+        <div className="flex flex-col gap-1 w-full sm:max-w-[480px] relative" onMouseLeave={handleMouseLeaveArea}>
           <p>
             I also{" "}
-            <a className="blue-link" target="_blank" rel="noreferrer noopener" href="https://youtu.be/UD2VcSmGrSc?si=KFo0hNCVWOP9lIhT">
-              film
+            <a className="blue-link" target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/watch?v=dw9RxwBmZl4">
+              teach
             </a>
             ,{" "}
-            <a className="blue-link" target="_blank" rel="noreferrer noopener" href="https://www.instagram.com/arcadefiredump">
-              photograph
+            <a className="blue-link" target="_blank" rel="noreferrer noopener" href="">
+              consult
             </a>{" "}
             and{" "}
-            <a className="blue-link" target="_blank" rel="noreferrer noopener" href="https://www.strava.com/athletes/ditherblue">
+            <a 
+              className="blue-link transition-all duration-500 ease-in-out cursor-pointer" 
+              onMouseEnter={handleRunHover}
+              onClick={handleRunHover}
+              style={isRunEscaping ? { 
+                position: 'fixed',
+                left: `${runPosition.x}px`, 
+                top: `${runPosition.y}px`,
+              } : {}}
+            >
               run
             </a>
             .
           </p>
           <p>
-            You can reach me at{" "}
-            <a className="blue-link" href="https://x.com/ditherblue" target="_blank" rel="noreferrer noopener">
-              @ditherblue
-            </a>{" "}
-            or hello@vedantja.in{" "}
-            <button
-              className="cursor-pointer blue-link"
-              onClick={handleCopy}
-            >
-              ({copied ? "copied!" : "copy"})
-            </button>
+            Find me on{" "}
+            <a className="blue-link" href="https://github.com/miracneroid" target="_blank" rel="noreferrer noopener">
+              github
+            </a>{" "},{" "}
+            <a className="blue-link" href="https://x.com/miracneroid" target="_blank" rel="noreferrer noopener">
+              twitter
+            </a>{" "}, or {" "}
+            <a className="blue-link" href="https://www.linkedin.com/in/miracneroid/" target="_blank" rel="noreferrer noopener">
+              linkedin
+            </a>.{" "}
           </p>
         </div>
       </div>
@@ -144,11 +257,11 @@ const Index = () => {
       <div className="text-neutral-400 w-full sm:w-128 flex flex-col gap-1 z-10">
         <p>
           If you have some time:{" "}
-          <a className="blue-link" target="_blank" rel="noreferrer noopener" href="https://youtu.be/UD2VcSmGrSc">
+          <a className="blue-link" target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/@miracneroid">
             youtube.com
           </a>
         </p>
-        <p className="text-neutral-400">Updated in February 2026</p>
+        <p className="text-neutral-400">Updated in April 2026</p>
       </div>
     </main>
   );
