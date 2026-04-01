@@ -168,12 +168,6 @@ const Index = () => {
           <p>
             I build reliable, scalable applications & systems for businesses that need things done right. From complex backends to polished interfaces — I focus on solving real problems with clean, maintainable code.
           </p>
-          <p>
-            Here's my{" "}
-            <a className="blue-link" href="https://your-resume-url.com" target="_blank" rel="noreferrer noopener">
-              résumé
-            </a>.
-          </p>
         </div>
 
         {/* Experience */}
