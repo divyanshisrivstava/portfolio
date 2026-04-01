@@ -170,6 +170,7 @@ const Index = () => {
             >
               Get in touch
             </button>
+          </div>
         </div>
 
         {/* Bio */}
