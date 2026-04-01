@@ -208,13 +208,15 @@ const Index = () => {
             </a>{" "}
             and{" "}
             <a 
-              className="blue-link transition-all duration-500 ease-in-out cursor-pointer" 
+              className="blue-link cursor-pointer"
               onMouseEnter={handleRunHover}
               onClick={handleRunHover}
               style={isRunEscaping ? { 
                 position: 'fixed',
                 left: `${runPosition.x}px`, 
                 top: `${runPosition.y}px`,
+                transition: 'left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), top 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                zIndex: 50,
               } : {}}
             >
               run
