@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface ProjectCardProps {
   title: string;
@@ -9,8 +10,13 @@ interface ProjectCardProps {
   isIcon?: boolean;
 }
 
-const ProjectCard = ({ title, description, tech, imageUrl, href, isIcon }: ProjectCardProps) => (
-  <a className="w-full flex flex-col gap-2 group" href={href} target="_blank" rel="noreferrer noopener">
+const ProjectCard = ({ title, description, tech, imageUrl, href, isIcon }: ProjectCardProps) => {
+  const isInternal = href.startsWith("/");
+  const Wrapper = isInternal ? Link : "a";
+  const linkProps = isInternal ? { to: href } : { href, target: "_blank", rel: "noreferrer noopener" };
+
+  return (
+    <Wrapper className="w-full flex flex-col gap-2 group" {...linkProps as any}>
     <div className="w-full aspect-video bg-neutral-100 overflow-hidden rounded relative flex items-center justify-center">
       {isIcon ? (
         <img
@@ -47,7 +53,8 @@ const ProjectCard = ({ title, description, tech, imageUrl, href, isIcon }: Proje
         ))}
       </div>
     </div>
-  </a>
-);
+    </Wrapper>
+  );
+};
 
 export default ProjectCard;
