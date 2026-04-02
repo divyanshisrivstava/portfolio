@@ -53,7 +53,8 @@ const ProjectCard = ({ title, description, tech, imageUrl, href, isIcon }: Proje
         ))}
       </div>
     </div>
-  </a>
-);
+    </Wrapper>
+  );
+};
 
 export default ProjectCard;
