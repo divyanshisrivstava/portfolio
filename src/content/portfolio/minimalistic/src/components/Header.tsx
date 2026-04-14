@@ -3,7 +3,7 @@ const navItems = [
   { label: "Work", href: "#projects" },
   { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
-  { label: "Resume", href: "https://resume-dev-miracneroid.netlify.app", external: true }
+  { label: "Resume", href: "", external: true }
 ];
 
 const Header = () => {
