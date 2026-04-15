@@ -10,7 +10,7 @@ export default function CleanProfessionalPortfolio() {
   const skills = ['HTML', 'CSS', 'JavaScript', 'React', 'Git', 'Python',];
 
   return (<>
-<style>{`
+    <style>{`
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font-family:Inter,Arial,sans-serif;color:#fff;background:radial-gradient(circle at top left,#1e1b4b,transparent 30%),radial-gradient(circle at bottom right,#0ea5e9,transparent 25%),linear-gradient(135deg,#020617,#0f172a,#111827);min-height:100vh}
 a{text-decoration:none;color:inherit}
@@ -43,7 +43,13 @@ section{margin-top:28px}section h3{font-size:28px;margin-bottom:18px}
             <h1>Divyanshi Srivastava</h1>
             <p>Web Developer • React Enthusiast</p>
           </div>
-          <button className="btn primary">Resume</button>
+          <a
+            href="https://resume-divyanshisrivstava.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="btn primary">Resume</button>
+          </a>
         </header>
 
         <section className="hero">
@@ -58,8 +64,8 @@ section{margin-top:28px}section h3{font-size:28px;margin-bottom:18px}
             </div>
           </div>
           <div className="card heroCard">
-  <img src="/myphoto.jpeg" alt="Divyanshi" className="profileImg" />
-</div>
+            <img src="/myphoto.jpeg" alt="Divyanshi" className="profileImg" />
+          </div>
         </section>
 
         <section>
@@ -88,29 +94,29 @@ section{margin-top:28px}section h3{font-size:28px;margin-bottom:18px}
           <p className="muted">Open for internships, freelance work, and exciting collaborations.</p>
           <div className="actions wrap">
             <a
-  href="https://github.com/yourusername"
-  className="social"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  GitHub
-</a>
+              href="https://github.com/yourusername"
+              className="social"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
 
-<a
-  href="https://www.linkedin.com/in/divyanshisrivstava"
-  className="social"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  LinkedIn
-</a>
+            <a
+              href="https://www.linkedin.com/in/divyanshisrivstava"
+              className="social"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
 
-<a
-  href="mailto:divyanshisrivstava@gmail.com"
-  className="social"
->
-  Email
-</a>
+            <a
+              href="mailto:divyanshisrivstava@gmail.com"
+              className="social"
+            >
+              Email
+            </a>
           </div>
         </section>
       </div>
