@@ -1,4 +1,5 @@
 import React from 'react';
+import PhoneMockup from './PhoneMockup';
 
 export default function CleanProfessionalPortfolio() {
   const projects = [
@@ -98,10 +99,10 @@ section{margin-top:28px}section h3{font-size:28px;margin-bottom:18px}
           <div className="grid">
             {projects.map((project, i) => (
               <div key={i} className="card">
+                <PhoneMockup url={project.url} title={project.title} screenshot={project.screenshot} />
                 <h4>{project.title}</h4>
                 <p className="muted">{project.desc}</p>
                 <p className="accent small">{project.tech}</p>
-                <button className="linkBtn">View Project ↗</button>
               </div>
             ))}
           </div>
