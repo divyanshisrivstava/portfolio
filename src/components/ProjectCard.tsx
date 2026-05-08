@@ -1,4 +1,4 @@
-import { ExternalLink } from "lucide-react";
+import PhoneMockup from "./PhoneMockup";
 
 interface ProjectCardProps {
   title: string;
@@ -10,28 +10,9 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ title, description, tech, imageUrl, href, isIcon }: ProjectCardProps) => (
-  <a className="w-full flex flex-col gap-2 group" href={href} target="_blank" rel="noreferrer noopener">
-    <div className="w-full aspect-video bg-neutral-100 overflow-hidden rounded relative flex items-center justify-center">
-      {isIcon ? (
-        <img
-          alt={title}
-          loading="lazy"
-          decoding="async"
-          className="w-24 h-24 object-contain object-center p-4"
-          src={imageUrl}
-        />
-      ) : (
-        <img
-          alt={title}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-contain object-center p-4 absolute inset-0"
-          src={imageUrl}
-        />
-      )}
-      <div className="absolute top-2 right-2 p-1.5 bg-white/90 rounded-full shadow-sm group-hover:bg-white transition-colors">
-        <ExternalLink className="w-3 h-3 text-neutral-600" />
-      </div>
+  <div className="w-full flex flex-col gap-4 group">
+    <div className="w-full bg-neutral-50 rounded-lg p-6 flex items-center justify-center">
+      <PhoneMockup url={href} title={title} fallbackImage={imageUrl} isIcon={isIcon} />
     </div>
     <div className="flex flex-col gap-1">
       <h1 className="text-sm font-medium">{title}</h1>
@@ -47,7 +28,7 @@ const ProjectCard = ({ title, description, tech, imageUrl, href, isIcon }: Proje
         ))}
       </div>
     </div>
-  </a>
+  </div>
 );
 
 export default ProjectCard;
