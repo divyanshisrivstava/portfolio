@@ -2,9 +2,27 @@ import React from 'react';
 
 export default function CleanProfessionalPortfolio() {
   const projects = [
-    { title: 'Portfolio Website', desc: 'Responsive personal portfolio built with React and modern UI practices.', tech: 'React • CSS' },
-    { title: 'Todo App', desc: 'Task manager with filters, local storage, and clean user experience.', tech: 'JavaScript • React' },
-    { title: 'E-commerce UI', desc: 'Modern shopping interface with product cards and cart flow design.', tech: 'React • CSS' },
+    {
+      title: 'Portfolio Website',
+      desc: 'Responsive personal portfolio built with React and modern UI practices.',
+      tech: 'React • CSS',
+      url: 'https://resume-divyanshisrivstava.netlify.app/',
+      screenshot: '',
+    },
+    {
+      title: 'Todo App',
+      desc: 'Task manager with filters, local storage, and clean user experience.',
+      tech: 'JavaScript • React',
+      url: 'https://todomvc.com/examples/react/dist/',
+      screenshot: '',
+    },
+    {
+      title: 'E-commerce UI',
+      desc: 'Modern shopping interface with product cards and cart flow design.',
+      tech: 'React • CSS',
+      url: 'https://demo.vercel.store/',
+      screenshot: '',
+    },
   ];
 
   const skills = ['HTML', 'CSS', 'JavaScript', 'React', 'Git', 'Python',];
